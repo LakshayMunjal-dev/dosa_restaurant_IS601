@@ -83,6 +83,7 @@ To start the FastAPI server:
 ```bash
 fastapi dev
 ```
+or 
 
 ```bash
 uvicorn main:app --reload
