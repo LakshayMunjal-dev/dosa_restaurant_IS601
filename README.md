@@ -1,13 +1,12 @@
-```markdown
 # Final Project - Dosa Restaurant REST API
 
-## Project Overview
+## Overview
 
-For this project, we are developing a REST API backend for a dosa restaurant using FastAPI and SQLite. The project involves creating three main entities — customers, items, and orders — and implementing a full CRUD functionality for each of them. The API is designed to interact with an SQLite database (`db.sqlite`) and is initialized using the `init_db.py` script, which populates the database with data from the `example_orders.json` file which we used in the midterm project.
+In this project, we developed a REST API backend for a dosa restaurant using FastAPI and SQLite. We creating three main entities — customers, items, and orders — and implementing a full CRUD functionality for each of them. The API is designed to interact with an SQLite database (`db.sqlite`) and is initialized using the `init_db.py` script, which populates the database with data from the `example_orders.json` file which we used in the midterm project.
 
 ## Features
 
-The project includes the following core features:
+We included the following core features:
 
 - **Customers**: Create, read, update, and delete customer records.
 - **Items**: Create, read, update, and delete menu items.
@@ -105,3 +104,5 @@ uvicorn main:app --reload
 4. **Technologies Used**: Specifies the technologies used for the project (FastAPI, SQLite, Python).
 5. **Setup Instructions**: Provides a step-by-step guide to setting up the environment, installing dependencies, initializing the database, and running the FastAPI server.
 6. **Project Structure**: Describes the project file structure.
+
+
