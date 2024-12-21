@@ -95,3 +95,66 @@ def delete_customer(id: int):
     con.close()
     return {"message": "Customer deleted successfully"}
 
+# Create a new item
+@app.post("/items")
+def create_item(item: Item):
+    con = db_setup()
+    cur = con.cursor()
+    cur.execute("INSERT INTO items (name, price) VALUES (?, ?)", (item.name, item.price))
+    con.commit()
+    con.close()
+    return {"message": "Item created successfully"}
+
+# Get item by ID
+@app.get("/items/{id}")
+def read_item(id: int):
+    con = db_setup()
+    cur = con.cursor()
+    cur.execute("SELECT * FROM items WHERE id=?", (id,))
+    row = cur.fetchone()
+    con.close()
+
+    if row is None:
+        raise HTTPException(status_code=404, detail="Item not found")
+    
+    return {"id": row["id"], "name": row["name"], "price": row["price"]}
+
+# Update item by ID
+@app.put("/items/{id}")
+def update_item(id: int, item: Item):
+    con = db_setup()
+    cur = con.cursor()
+    cur.execute("SELECT * FROM items WHERE id=?", (id,))
+    existing_item = cur.fetchone()
+
+    if not existing_item:
+        con.close()
+        raise HTTPException(status_code=404, detail="Item not found")
+    
+    # Conditionally update only the fields that were provided in the request body
+    if item.name is not None:
+        cur.execute("UPDATE items SET name=? WHERE id=?", (item.name, id))
+    if item.price is not None:
+        cur.execute("UPDATE items SET price=? WHERE id=?", (item.price, id))
+
+    con.commit()
+    con.close()
+    return {"message": f"Item with ID {id} updated successfully"}
+
+# Delete item by ID
+@app.delete("/items/{id}")
+def delete_item(id: int):
+    con = db_setup()
+    cur = con.cursor()
+    cur.execute("SELECT * FROM items WHERE id=?", (id,))
+    item = cur.fetchone()
+
+    if not item:
+        con.close()
+        raise HTTPException(status_code=404, detail="Item not found")
+    
+    cur.execute("DELETE FROM items WHERE id=?", (id,))
+    con.commit()
+    con.close()
+    return {"message": "Item deleted successfully"}
+
